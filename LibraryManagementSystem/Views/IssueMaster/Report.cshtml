@@ -1,0 +1,43 @@
+﻿@model LibraryManagementSystem.Extended_Model.ViewModel
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="tab-content">
+    <div class="tab-pane container active p-0" id="home">
+        <h5 class="text-uppercase p-2 text-center">Book Issue Report</h5>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark text-white">
+                <tr>
+                    <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentId)</th>
+                    <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentName)</th>
+                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookId)</th>
+                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookName)</th>
+                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().IssueDate)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.IssueMasters)
+                {
+                <tr>
+                    <td>@item.StudentId</td>
+                    <td>@item.StudentName</td>
+
+                    @foreach (var items in Model.IssueDetails)
+                    {
+
+                        <td>@items.BookId</td>
+                        <td>@items.BookName</td>
+                        <td>@items.IssueDate</td>
+
+                    }
+                </tr>
+                }
+                </tbody>
+            </table>
+    </div>
+ </div>
+
+

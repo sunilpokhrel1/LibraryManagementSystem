@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Issue";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Index</h2>
+
+<div class="row ">
+    <div class=" col-sm-4">
+        @using (Html.BeginForm("Save", "Issuee", FormMethod.Post))
+        {
+            <div>
+                <h3> Issue Book</h3>
+
+            </div>
+            <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" id="StudentId" name="StudentId" class="form-control" placeholder="Enter Student ID" required />
+
+            </div>
+
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" id="StudentName" name="StudentName" class="form-control" placeholder="Student Name" required />
+
+            </div>
+
+            <div class="form-group">
+                <label>Book ID</label>
+                <input type="text" id="BookId" name="BookId" class="form-control" placeholder="Enter Book ID" required />
+
+            </div>
+
+
+            <div class="form-group">
+                <label>Book Name</label>
+                <input type="text" id="BookName" name="BookName" class="form-control" placeholder="Book Name" required />
+
+            </div>
+
+            <div class="form-group">
+                <label>Issue Date</label>
+                <input type="date" id="IssueDate" name="IssueDate" class="form-control" required />
+
+            </div>
+
+            <div class="form-group">
+                <label>Return Date</label>
+                <input type="date" id="ReturnDate" name="ReturnDate" class="form-control" required />
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="submit" value="Save" class="btn btn-success" required />
+
+            </div>
+
+
+
+
+        }
+
+    </div>
+
+
+
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script>
+        getStudentId();
+        getBookId();
+
+
+        function getStudentId()
+        {
+            $('#StudentId').keyup(function (e) {
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Issuee/GetStudentId?StudentId=' + $('#StudentId').val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#StudentName').val(data);
+
+                    }
+
+                });
+            });
+
+        }
+
+
+        function getBookId() {
+            $('#BookId').keyup(function (e) {
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Issuee/GetBookId?BookId=' + $('#BookId').val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#BookName').val(data);
+
+                    }
+
+                });
+            });
+
+        }
+
+    </script>
+
+
+
+}
+

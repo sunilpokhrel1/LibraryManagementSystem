@@ -1,0 +1,44 @@
+﻿@model LibraryManagementSystem.Models
+@{
+    ViewBag.Title = "Report2";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Report2</h2>
+
+<table>
+    <tr>
+        <td>
+            StudentId
+        </td>
+
+        <td>
+            StudentName
+        </td>
+        <td>
+            BookId
+        </td>
+        <td>
+            BookName
+        </td>
+        <td>
+            IssueDate
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.IssueMasters.StudentId</td>
+            <td>@item.IssueMasters.StudentName</td>
+            <td>@item.IssueDetail.BookId</td>
+            <td>@item.IssueDetail.BookName</td>
+            <td>@item.IssueDetail.IssueDate</td>
+        </tr>
+
+
+     }
+
+    </table>
+
+

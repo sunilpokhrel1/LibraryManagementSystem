@@ -1,0 +1,119 @@
+﻿@model LibraryManagementSystem.Models.tblBook
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Add Books</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BookName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BookCategory, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BookCategory, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BookAuthor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BookAuthor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BookNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BookNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BookPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BookPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Date Added
+        </label>
+        @*@Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        <div class="col-md-10">
+ 
+            @Html.EditorFor(model => model.AddedDate , new { htmlAttributes = new { @class = "form-control datepicker", placeholder = "05/23/1983" } })
+            @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <button onclick="" type="submit" value="Submit" class="btn btn-sm btn-primary" data-toggle='tooltip' title='Submit book'>
+            <i class="fas fa-check-circle"></i>
+            Submit
+        </button>
+    </div>
+
+
+    @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>*@
+</div>
+}
+
+
+
+
+<div class="btn btn-sm btn-secondary" data-toggle='tooltip' title='Back to book list'>
+    <i class="fas fa-long-arrow-alt-left"></i>
+    @Html.ActionLink("Back", "Index", null, new { @class = "", style = "text-decoration:none; color: white" })
+</div>
+<br />
+<br />
+
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script>
+        @*Date picker *@
+        $(function () {
+            $(".datepicker").datepicker({ changeMonth: true, changeYear: true });
+        });
+
+    </script>
+}

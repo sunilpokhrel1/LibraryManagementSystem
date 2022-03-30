@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Issue Book form</h2>
+<div class="container">
+    <div class="card">
+        <div class=" card-body">
+            <div class="master">
+                <h3>Student Detail</h3>
+                <table class="table table-responsive">
+                    <tr>
+                        <td>Student Roll No:
+                        <td>
+                            <input type="text" id="StudentId" name="StudentId" class="form-control" placeholder="Enter Student Roll No." required />
+                        </td>
+                        <td>Student Name:</td>
+                        <td>
+                            <input type="text" id="StudentName" name="StudentName" class="form-control" placeholder="Student Name" required readonly />
+
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class=" card">
+            <div class="details">
+                <h3>
+                    Book Detail
+                </h3>
+                <table id="maintable" class="table table-responsive">
+                    <tr>
+                        <td>Book ID </td>
+                        <td>Book Name</td>
+                        <td>Issue Date</td>
+                        <td>Action</td>
+
+
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr class="mycontainer" id="mainrow">
+                        <td>
+                            <input type="text" id="BookId" name="BookId" class="form-control" placeholder="Enter Book ID" required />
+
+                        </td>
+                        <td>
+                            <input type="text" id="BookName" name="BookName" class="form-control" placeholder="Book Name" required readonly />
+
+                        </td>
+                        <td>
+                            <input type="date" id="IssueDate" name="IssueDate" class="form-control" required />
+
+                        </td>
+                        <td>
+                            <input type="button" id="delete" value="Delete" style="width:80px" class="btn btn-danger" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <input type="button" id="add" value="Add " style="width:80px" class="btn btn-success btn-lg btn-block" />
+                        </td>
+                    </tr>
+
+                </table>
+                @*<div id="orderItems">
+                        <table class="table table-responsive" id="orderdetailsItems"></table>
+                        <span id="orderItemError" style="color:red"></span>
+                    </div>*@
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div style="padding:10px 0; text-align:right">
+        <input id="submit" type="button" value="Issue Book" class="btn btn-warning" style="padding:10px 20px" />
+    </div>
+
+
+</div>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script src="~/Scripts/MyScript.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+@section scripts{
+
+    @*<script src="~/Scripts/MyScript.js"></script>*@
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>	https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.2/jquery.js</script>
+    <script type="text/javascript">
+
+
+
+
+
+
+        $(function () {
+            $('#orderDate').datepicker({
+                dateFormat: 'mm-dd-yy'
+            })
+        })
+    </script>
+
+    <script>
+        getStudentId();
+        getBookId();
+
+
+        function getStudentId() {
+            $('#StudentId').keyup(function (e) {
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Issuee/GetStudentId?StudentId=' + $('#StudentId').val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#StudentName').val(data);
+
+                    }
+
+                });
+            });
+
+        }
+
+
+        function getBookId() {
+            $('#BookId').keyup(function (e) {
+
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Issuee/GetBookId?BookId=' + $('#BookId').val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $('#BookName').val(data);
+
+                    }
+
+                });
+            });
+
+        }
+
+    </script>
+    <script>
+
+        //$(function () {
+            
+        //    //attach the a function to the click event of the "Add Box Attribute button that will add a new row
+        //    $('#add').click(function () {
+                
+        //        //clone the template row, and all events attached to the row and everything in it
+
+        //        var $newRow = $('#mainrow').clone(true).removeAttr('id');
+
+        //        //strip the IDs from everything to avoid DOM issues
+        //        //$newRow.find('*').addBack().removeAttr('id');
+
+        //        //add the cloned row to the table immediately before the last row
+        //        $('#maintable tr:last').before($newRow);
+
+        //        //to prevent the default behavior of submitting the form
+        //        return false;
+        //    });
+
+        //    //attach a remove row function to all current and future instances of the "remove row" check box
+        //    $('#delete').click(function () {
+        //        //find the closest parent row and remove it
+        //        $(this).closest('tr').remove();
+        //    });
+
+        //    //finally, add an initial row by simulating the "Add Box Attribute" click
+        //    $('#add').click();
+        //});
+
+
+
+    </script>
+
+
+
+}
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>

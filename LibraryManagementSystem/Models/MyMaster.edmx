@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LibraryDatabaseModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="IssueDetails">
+          <Key>
+            <PropertyRef Name="IssueDetailId" />
+          </Key>
+          <Property Name="IssueDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IssueMasterId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssueDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IssueMaster">
+          <Key>
+            <PropertyRef Name="IssueMasterId" />
+          </Key>
+          <Property Name="IssueMasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_IssueDetails_IssueMaster">
+          <End Role="IssueMaster" Type="Self.IssueMaster" Multiplicity="1" />
+          <End Role="IssueDetails" Type="Self.IssueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueMaster">
+              <PropertyRef Name="IssueMasterId" />
+            </Principal>
+            <Dependent Role="IssueDetails">
+              <PropertyRef Name="IssueMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryDatabaseModel4StoreContainer">
+          <EntitySet Name="IssueDetails" EntityType="Self.IssueDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IssueMaster" EntityType="Self.IssueMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IssueDetails_IssueMaster" Association="Self.FK_IssueDetails_IssueMaster">
+            <End Role="IssueMaster" EntitySet="IssueMaster" />
+            <End Role="IssueDetails" EntitySet="IssueDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryDatabaseModel4" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="IssueDetail">
+          <Key>
+            <PropertyRef Name="IssueDetailId" />
+          </Key>
+          <Property Name="IssueDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IssueMasterId" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IssueMaster" Relationship="Self.FK_IssueDetails_IssueMaster" FromRole="IssueDetails" ToRole="IssueMaster" />
+        </EntityType>
+        <EntityType Name="IssueMaster">
+          <Key>
+            <PropertyRef Name="IssueMasterId" />
+          </Key>
+          <Property Name="IssueMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IssueDetails" Relationship="Self.FK_IssueDetails_IssueMaster" FromRole="IssueMaster" ToRole="IssueDetails" />
+        </EntityType>
+        <Association Name="FK_IssueDetails_IssueMaster">
+          <End Role="IssueMaster" Type="Self.IssueMaster" Multiplicity="1" />
+          <End Role="IssueDetails" Type="Self.IssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueMaster">
+              <PropertyRef Name="IssueMasterId" />
+            </Principal>
+            <Dependent Role="IssueDetails">
+              <PropertyRef Name="IssueMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryDatabaseEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="IssueDetails" EntityType="Self.IssueDetail" />
+          <EntitySet Name="IssueMasters" EntityType="Self.IssueMaster" />
+          <AssociationSet Name="FK_IssueDetails_IssueMaster" Association="Self.FK_IssueDetails_IssueMaster">
+            <End Role="IssueMaster" EntitySet="IssueMasters" />
+            <End Role="IssueDetails" EntitySet="IssueDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryDatabaseModel4StoreContainer" CdmEntityContainer="LibraryDatabaseEntities1">
+          <EntitySetMapping Name="IssueDetails">
+            <EntityTypeMapping TypeName="LibraryDatabaseModel4.IssueDetail">
+              <MappingFragment StoreEntitySet="IssueDetails">
+                <ScalarProperty Name="IssueDetailId" ColumnName="IssueDetailId" />
+                <ScalarProperty Name="IssueMasterId" ColumnName="IssueMasterId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IssueMasters">
+            <EntityTypeMapping TypeName="LibraryDatabaseModel4.IssueMaster">
+              <MappingFragment StoreEntitySet="IssueMaster">
+                <ScalarProperty Name="IssueMasterId" ColumnName="IssueMasterId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
