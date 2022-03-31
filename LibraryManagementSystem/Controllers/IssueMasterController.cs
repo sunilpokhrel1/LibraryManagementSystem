@@ -62,6 +62,8 @@ namespace LibraryManagementSystem.Controllers
             return View(tables);
 
 
+
+
         }
 
         public ActionResult Report2()

@@ -140,6 +140,7 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Extended Model\IssueDetail.cs" />
+    <Compile Include="Extended Model\MultipleTable.cs" />
     <Compile Include="Extended Model\ViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -5,39 +5,64 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="tab-content">
     <div class="tab-pane container active p-0" id="home">
         <h5 class="text-uppercase p-2 text-center">Book Issue Report</h5>
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark text-white">
-                <tr>
-                    <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentId)</th>
-                    <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentName)</th>
-                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookId)</th>
-                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookName)</th>
-                    <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().IssueDate)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.IssueMasters)
-                {
-                <tr>
-                    <td>@item.StudentId</td>
-                    <td>@item.StudentName</td>
+        @*Data tables*@
+        <link rel="stylesheet" , href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />
+        <link rel="stylesheet" , href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
 
-                    @foreach (var items in Model.IssueDetails)
+        <div class="table-responsive">
+            <table width="auto" class="table-sm table-hover table-bordered " id="table">
+                <thead class="bg-success text-center text-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentId)</th>
+                        <th>@Html.DisplayNameFor(m => Model.IssueMasters.FirstOrDefault().StudentName)</th>
+                        <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookId)</th>
+                        <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().BookName)</th>
+                        <th>@Html.DisplayNameFor(m => Model.IssueDetails.FirstOrDefault().IssueDate)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.IssueMasters )
                     {
+                    <tr>
+                        <td>@item.StudentId</td>
+                        <td>@item.StudentName</td>
 
-                        <td>@items.BookId</td>
-                        <td>@items.BookName</td>
-                        <td>@items.IssueDate</td>
 
+
+
+
+                        @foreach (var items in Model.IssueDetails)
+                        {
+
+                            <td>@items.BookId</td>
+                            <td>@items.BookName</td>
+                            <td>@items.IssueDate</td>
+
+                        }
+                    </tr>
+                        
                     }
-                </tr>
-                }
                 </tbody>
             </table>
+            </div>
+        </div>
     </div>
- </div>
 
+@section scripts{
+    @*External scripts for data table plugins*@
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "scrollX": true
 
+            });
+        });
+    </script>
+}
